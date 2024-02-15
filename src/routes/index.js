@@ -30,6 +30,9 @@ export default function Routes(){
             <Stack.Screen
                 name="Details"
                 component={Deatils}
+                options={{
+                    headerShown: false
+                }}
             />
 
             

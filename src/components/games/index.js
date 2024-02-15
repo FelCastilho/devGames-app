@@ -4,14 +4,20 @@ import { Card, Name, Rating, BackgoundImage, RatingText, ContainerText, Overlay 
 
 import { AntDesign } from '@expo/vector-icons';
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function Games({ data }){
+
+    const navigation = useNavigation();
 
     return(
 
-        <Card>
+        <Card onPress={() => navigation.navigate('Details', { item: data })}>
+
             <BackgoundImage
             source={{uri: data.background_image}}
             />
+            
             <Overlay />
 
             <ContainerText>
