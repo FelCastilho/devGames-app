@@ -48,6 +48,7 @@ export default function Home(){
             />
 
             <ContainerGames>
+                
                 <Title>Trending games</Title>
 
                 <ListGames
