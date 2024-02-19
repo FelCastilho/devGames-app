@@ -6,9 +6,13 @@ export default function Genres({ data }){
 
     return(
         <ContainerGenre>
+
             <GenreButton>
+
                 <GenreButtonText>{data.name}</GenreButtonText>
+
             </GenreButton>
+            
         </ContainerGenre>
     )
 }

@@ -42,6 +42,13 @@ export const ReturnButton = styled.TouchableOpacity`
     border-radius: 50px;
 `;
 
+export const Subtitle = styled.Text`
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+`;
+
 export const Rating = styled.View`
     flex-direction: row;
     gap: 6px;
@@ -58,4 +65,19 @@ export const Title = styled.Text`
     color: white;
     font-weight: bold;
     font-size: 25px;
+`;
+
+export const GenresList = styled.FlatList`
+`;
+
+export const ContainerGenres = styled.View`
+`;
+
+export const Genres = styled.Text`
+    font-size: 18px;
+    background-color: #64748B;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 8px;
 `;

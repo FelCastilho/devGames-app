@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { View, Text, Dimensions, ActivityIndicator } from "react-native";
+import { View, Text, Dimensions, ActivityIndicator, FlatList } from "react-native";
 import './style.js';
 
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 
 
-import { Container, ContainerBanner, Rating, RatingText, Title, ImageContainer, ImagesList, ContainerButtons, ReturnButton, FavoriteButton, ContainerContent } from "./style.js";
+import { Container, ContainerBanner, Rating, RatingText, Title, ImageContainer, ImagesList, ContainerButtons, ReturnButton, FavoriteButton, ContainerContent, ContainerGenres, GenresList, Genres, Subtitle } from "./style.js";
 
 import api from "../../services/api.js";
 
@@ -23,6 +23,7 @@ export default function Details() {
 
     const [content, setContent] = useState(null);
     const [backgroundImages, setBackgroundImages] = useState([]);
+    const [genres, setGenres] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -34,6 +35,7 @@ export default function Details() {
                 setContent(response.data);
 
                 setBackgroundImages([response.data.background_image, response.data.background_image_additional]);
+                setGenres(response.data.genres)
                 setLoading(false)
 
             } catch (error) {
@@ -99,15 +101,27 @@ export default function Details() {
                             <RatingText>{data.rating.toFixed(1)}/ 5</RatingText>
                         </Rating>
     
-                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', marginTop: 10 }}>{content.name}</Text>
+                        <Subtitle>{content.name}</Subtitle>
     
                         <Title>Genres:</Title>
+
+                        <GenresList
+                        horizontal
+                        data={genres}
+                        renderItem={({item}) => (
+                            <ContainerGenres>
+                                <Genres style={{color: 'white'}}>{item.name}</Genres>
+                            </ContainerGenres>
+                        )}
+                        />
+
+                        <Subtitle>Description:</Subtitle>
+
+                        <Text>{content.description}</Text>
     
                     </ContainerContent>
     
                 )}
-    
-    
     
             </Container>
         );
