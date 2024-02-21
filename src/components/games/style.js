@@ -28,6 +28,7 @@ export const RatingText = styled.Text`
 export const BackgoundImage = styled.Image`
     height: 200px;
     background-color: rgba(0, 0, 0, 1);
+    border-radius: 8px;
 `;
 
 export const ContainerText = styled.View`
@@ -38,6 +39,7 @@ export const ContainerText = styled.View`
 
 export const Overlay = styled.View`
   background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
   position: absolute;
   height: 200px;
   top: 0;

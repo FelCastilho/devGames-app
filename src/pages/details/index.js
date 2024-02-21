@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { View, Text, Dimensions, ActivityIndicator, FlatList } from "react-native";
+import { View, Text, Dimensions, ActivityIndicator, Modal, ScrollView } from "react-native";
 import './style.js';
+
+import ModalDescription from "./components/modalDescription/index.js";
 
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 
-
-import { Container, ContainerBanner, Rating, RatingText, Title, ImageContainer, ImagesList, ContainerButtons, ReturnButton, FavoriteButton, ContainerContent, ContainerGenres, GenresList, Genres, Subtitle } from "./style.js";
+import { Container, ContainerBanner, Rating, RatingText, Title, ImageContainer, ImagesList, ContainerButtons, ReturnButton, FavoriteButton, ContainerContent, ContainerGenres, GenresList, Genres, Subtitle, Description, ModalButton, ModalButtonText, HorizontalLists, HorizontalListsContainer, TextList } from "./style.js";
 
 import api from "../../services/api.js";
 
@@ -24,7 +25,10 @@ export default function Details() {
     const [content, setContent] = useState(null);
     const [backgroundImages, setBackgroundImages] = useState([]);
     const [genres, setGenres] = useState([]);
+    const [platforms, setPlatforms] = useState([]);
+    const [stores, setStores] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [ modalVisible, setModalVisible ] = useState(false)
 
     useEffect(() => {
 
@@ -36,6 +40,8 @@ export default function Details() {
 
                 setBackgroundImages([response.data.background_image, response.data.background_image_additional]);
                 setGenres(response.data.genres)
+                setPlatforms(response.data.platforms)
+                setStores(response.data.stores)
                 setLoading(false)
 
             } catch (error) {
@@ -49,6 +55,14 @@ export default function Details() {
         }
 
     }, [data.slug, content]);
+
+    function removeTag(description){
+        return description.replace(/<p>/g, '').replace(/<\/p>/g, '');
+    }
+
+    function closeModal(){
+        setModalVisible(false);
+    }
 
     if(loading){
 
@@ -93,34 +107,69 @@ export default function Details() {
                 </ContainerBanner>
     
                 {content && (
-    
-                    <ContainerContent>
-    
-                        <Rating>
-                            <AntDesign name="star" size={20} color="#FABB1E" />
-                            <RatingText>{data.rating.toFixed(1)}/ 5</RatingText>
-                        </Rating>
-    
-                        <Subtitle>{content.name}</Subtitle>
-    
-                        <Title>Genres:</Title>
+                    
+                    <ScrollView>
+                        <ContainerContent>
+        
+                            <Rating>
+                                <AntDesign name="star" size={20} color="#FABB1E" />
+                                <RatingText>{data.rating.toFixed(1)}/ 5</RatingText>
+                            </Rating>
+        
+                            <Subtitle>{content.name}</Subtitle>
+        
+                            <Title>Genres:</Title>
 
-                        <GenresList
-                        horizontal
-                        data={genres}
-                        renderItem={({item}) => (
-                            <ContainerGenres>
-                                <Genres style={{color: 'white'}}>{item.name}</Genres>
-                            </ContainerGenres>
-                        )}
-                        />
+                            <GenresList
+                            horizontal
+                            data={genres}
+                            renderItem={({item}) => (
+                                <ContainerGenres>
+                                    <Genres style={{color: 'white'}}>{item.name}</Genres>
+                                </ContainerGenres>
+                            )}
+                            />
 
-                        <Subtitle>Description:</Subtitle>
+                            <Subtitle>Description:</Subtitle>
 
-                        <Text>{content.description}</Text>
-    
-                    </ContainerContent>
-    
+                            <Description>{removeTag(content.description)}...</Description>
+
+                            <ModalButton onPress={() => setModalVisible(true)}>
+
+                                <ModalButtonText>Read full description</ModalButtonText>
+
+                                <Modal animationType="slide" visible={modalVisible}>
+                                    <ModalDescription data={content.description} close={closeModal} removeTag={removeTag}/>
+                                </Modal>
+                                
+                            </ModalButton>
+
+                            <Subtitle>Platforms:</Subtitle>
+
+                            <HorizontalLists
+                            horizontal
+                            data={platforms}
+                            renderItem={({item}) => (
+                                <HorizontalListsContainer>
+                                    <TextList style={{color: 'white'}}>{item.platform.name}</TextList>
+                                </HorizontalListsContainer>
+                            )}
+                            />
+
+                            <Subtitle>Stores:</Subtitle>
+
+                            <HorizontalLists
+                            horizontal
+                            data={stores}
+                            renderItem={({item}) => (
+                                <HorizontalListsContainer>
+                                    <TextList style={{color: 'white'}}>{item.store.name}</TextList>
+                                </HorizontalListsContainer>
+                            )}
+                            />
+
+                        </ContainerContent>
+                    </ScrollView>           
                 )}
     
             </Container>

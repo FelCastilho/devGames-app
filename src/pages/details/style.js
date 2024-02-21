@@ -46,7 +46,7 @@ export const Subtitle = styled.Text`
     color: white;
     font-size: 18px;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 20px;
 `;
 
 export const Rating = styled.View`
@@ -74,8 +74,43 @@ export const ContainerGenres = styled.View`
 `;
 
 export const Genres = styled.Text`
-    font-size: 18px;
+    font-size: 14px;
+    font-weight: bold;
     background-color: #64748B;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 8px;
+`;
+
+export const Description = styled.Text`
+    height: 100px;
+    color: #EFEFEF;
+`;
+
+export const ModalButton = styled.TouchableOpacity`
+    background-color: #0E5C88;
+    padding: 5px;
+    border-radius: 4px;
+    margin-top: 10px;
+`;
+
+export const ModalButtonText = styled.Text`
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+`;
+
+export const HorizontalLists = styled.FlatList`
+`;
+
+export const HorizontalListsContainer = styled.View`
+`;
+
+export const TextList = styled.Text`
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #0F172A;
     padding: 10px;
     margin-top: 10px;
     margin-right: 10px;
