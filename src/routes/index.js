@@ -2,7 +2,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "../pages/home";
 import Search from '../pages/search';
-import Category from '../pages/category';
 import Deatils from '../pages/details';
 import Favorites from "../pages/favorites";
 import Genres from "../pages/genres";

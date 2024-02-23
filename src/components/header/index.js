@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { useState } from "react";
 
 import { Container, ContainerLogo, ContainerSearch, Span, Logo, FavoriteButton, SearchInput, SearchButton } from "./style";
 
@@ -6,9 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 
 import { Feather } from '@expo/vector-icons';
 
+
 export function Header(){
 
     const navigation = useNavigation();
+    const [ gameName, setGameName ] = useState('');
+
+    function searchGame(){
+        navigation.navigate('Search', { content: gameName });
+    }
 
     return(
         
@@ -27,11 +33,13 @@ export function Header(){
             <ContainerSearch>
 
                 <SearchInput
+                    value={gameName}
+                    onChangeText={(text) => setGameName(text)}
                     placeholder="Looking for a game?"
                     placeholderTextColor='#fff'
                 />
 
-                <SearchButton>
+                <SearchButton onPress={searchGame}>
                     <Feather name="search" size={35} color="#FF455F" />
                 </SearchButton>
             </ContainerSearch>
