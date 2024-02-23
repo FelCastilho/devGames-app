@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-import { Container, ContainerLogo, ContainerSearch, Span, Logo, FavoriteButton, SearchInput } from "./style";
+import { Container, ContainerLogo, ContainerSearch, Span, Logo, FavoriteButton, SearchInput, SearchButton } from "./style";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,7 +18,7 @@ export function Header(){
 
                 <Logo>Dev<Span>Games</Span></Logo>
                 
-                <FavoriteButton onPress={() => navigation.navigate('Favorites')}>
+                <FavoriteButton onPress={() => navigation.navigate('My favorites')}>
                     <Feather name="bookmark" size={24} color="white" />
                 </FavoriteButton>
 
@@ -31,7 +31,9 @@ export function Header(){
                     placeholderTextColor='#fff'
                 />
 
-                <Feather name="search" size={35} color="#FF455F" />
+                <SearchButton>
+                    <Feather name="search" size={35} color="#FF455F" />
+                </SearchButton>
             </ContainerSearch>
 
         </Container>

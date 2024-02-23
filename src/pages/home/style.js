@@ -6,7 +6,6 @@ export const Container = styled.View`
 `;
 
 export const ListGenre = styled.FlatList`
-    flex: 1;
     max-height: 80px;
 `;
 

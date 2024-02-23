@@ -5,15 +5,14 @@ export const ContainerGenre = styled.View`
 `;
 
 export const GenreButton = styled.TouchableOpacity`
-
     background-color: #64748B;
     border-radius: 8px;
-    width: 90px;
+    width: 100px;
 `;
 
 export const GenreButtonText = styled.Text`
    color: white;
    padding: 10px;
-   font-weight: bold;
+   font-size: 14px;
    text-align: center;
 `;

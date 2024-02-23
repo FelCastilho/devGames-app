@@ -2,15 +2,14 @@ import './style.js'
 import { Card, Name, Rating, BackgoundImage, RatingText, ContainerText, Overlay } from "./style.js"
 
 import { AntDesign } from '@expo/vector-icons';
-
 import { useNavigation } from '@react-navigation/native';
 
-export default function Games({ data }){
+export function CardsGenres({ data }) {
 
     const navigation = useNavigation();
 
-    return(
-
+    return (
+        
         <Card onPress={() => navigation.navigate('Details', { item: data })}>
 
             <BackgoundImage
@@ -33,5 +32,5 @@ export default function Games({ data }){
             </ContainerText>
         
         </Card>
-    )
+    );
 }

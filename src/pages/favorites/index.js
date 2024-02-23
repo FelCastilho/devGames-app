@@ -1,9 +1,11 @@
 import { View, Text } from "react-native"
+import './style.js';
+import { Container } from "./style";
 
 export default function Favorites(){
     return(
-        <View>
-            <Text>Tela de favoritos</Text>
-        </View>
+        <Container>
+            <Text style={{color: '#fff'}}>Tela de favoritos</Text>
+        </Container>
     )
 }

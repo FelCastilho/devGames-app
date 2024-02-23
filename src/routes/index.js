@@ -5,6 +5,7 @@ import Search from '../pages/search';
 import Category from '../pages/category';
 import Deatils from '../pages/details';
 import Favorites from "../pages/favorites";
+import Genres from "../pages/genres";
 
 export default function Routes(){
 
@@ -12,7 +13,15 @@ export default function Routes(){
 
     return(
 
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle:{
+                    backgroundColor: '#050B18',
+                    elevation: 0,
+                },
+                headerTintColor: '#fff'          
+            }}
+        >
 
             <Stack.Screen
                 name="Home"
@@ -35,17 +44,18 @@ export default function Routes(){
                 }}
             />
 
-            
             <Stack.Screen
-                name="Category"
-                component={Category}
-            />
-
-            <Stack.Screen
-                name="Favorites"
+                name="My favorites"
                 component={Favorites}
             />
 
+            <Stack.Screen
+                name="Genres"
+                component={Genres}
+                options={({ route }) => ({
+                    title: route.params?.genreName || 'Genres',
+                })}
+            />
 
         </Stack.Navigator>
     )

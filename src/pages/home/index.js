@@ -6,7 +6,7 @@ import { Container, ListGenre, ContainerGames, Title, ListGames } from "./style.
 
 import api from '../../services/api.js';
 
-import Genres from '../../components/genres/index.js';
+import Genres from '../../components/genresList/index.js';
 import Games from '../../components/games/index.js';
 
 export default function Home(){

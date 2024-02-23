@@ -41,3 +41,6 @@ export const SearchInput = styled.TextInput`
     padding: 10px;
     color: white;
 `;
+
+export const SearchButton = styled.TouchableOpacity`
+`;
