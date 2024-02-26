@@ -14,6 +14,11 @@ import api from "../../services/api.js";
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
+import { openDatabase } from "expo-sqlite";
+
+const db = openDatabase('myGames', );
+
+
 const windowWidth = Dimensions.get('window').width;
 
 export default function Details() {
@@ -64,6 +69,36 @@ export default function Details() {
         setModalVisible(false);
     }
 
+    async function saveGame() {
+        
+        if (!content) {
+            console.error('Nenhum conteúdo de jogo disponível para salvar.');
+            return;
+        }
+    
+        try {
+            await db.transaction(async (tx) => {
+                await tx.executeSql(
+                    'CREATE TABLE IF NOT EXISTS favorite_games (id INTEGER PRIMARY KEY AUTOINCREMENT, game_data TEXT)'
+                );
+                await tx.executeSql(
+                    'INSERT INTO favorite_games (game_data) VALUES (?)',
+                    [JSON.stringify(content)],
+                    (_, result) => {
+                        console.log('Jogo favorito inserido com sucesso:', result.insertId);
+                    },
+                    (_, error) => {
+                        console.log('Erro ao inserir jogo favorito:', error);
+                    }
+                );
+            });
+        } catch (error) {
+            console.error('Erro ao salvar jogo favorito:', error);
+        }
+    }
+    
+
+
     if(loading){
 
         return(
@@ -86,7 +121,7 @@ export default function Details() {
                             <AntDesign name="arrowleft" size={24} color="white" />
                         </ReturnButton>
     
-                        <FavoriteButton onPress={() => navigation.navigate('Favorites')}>
+                        <FavoriteButton onPress={saveGame}>
                             <Feather name="bookmark" size={24} color="white" />
                         </FavoriteButton>
     
