@@ -85,7 +85,7 @@ export default function Details() {
                     'INSERT INTO favorite_games (game_data) VALUES (?)',
                     [JSON.stringify(content)],
                     (_, result) => {
-                        console.log('Jogo favorito inserido com sucesso:', result.insertId);
+                        //console.log('Jogo favorito inserido com sucesso:', result.insertId);
                     },
                     (_, error) => {
                         console.log('Erro ao inserir jogo favorito:', error);

@@ -6,13 +6,14 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 
-export default function ListFavoriteGames({ data, deleteItem }){
+export default function ListFavoriteGames({ data, onDelete  }){
 
     const navigation = useNavigation();
 
-    function handleDelete(){
-        deleteItem(data);
-    }
+    const handleDelete = () => {
+        // Pegando o id do item e passando para a função de exclusão
+        onDelete(data.id); 
+    };
 
     return(
 
@@ -27,7 +28,7 @@ export default function ListFavoriteGames({ data, deleteItem }){
             <ContainerText>
 
                 <DeleteButton onPress={handleDelete}>
-                    <Feather name="trash" size={30} color="white" />
+                    <Feather name="trash" size={25} color="white" />
                 </DeleteButton>
 
                 <Name style={{color: '#fff'}}>{data.name}</Name>

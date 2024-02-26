@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
 import { Container, ListGames } from "./style.js";
-
 import ListFavoriteGames from "../../components/listFavoriteGames/index.js";
-
 import { openDatabase } from "expo-sqlite";
 
 const db = openDatabase('myGames');
@@ -11,59 +10,72 @@ export default function Favorites() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
+        fetchSavedGames();
+    }, []);
 
-        const fetchSavedGames = async () => {
-            try {
-                await db.transaction(async (tx) => {
-                    tx.executeSql(
-                        'SELECT * FROM favorite_games',
-                        [],
-                        (_, { rows: { _array } }) => {
-                            const games = _array.map(item => JSON.parse(item.game_data));
-                            setData(games); 
-                        },
-                        (_, error) => {
-                            console.error('Erro ao ler dados do banco de dados:', error);
-                        }
-                    );
-                });
-            } catch (error) {
-                console.error('Erro ao acessar o banco de dados:', error);
-            }
-        };
-        
-
-        fetchSavedGames(); 
-
-    }, []); 
-
-    async function handleDelete(itemToDelete){
+    async function fetchSavedGames(){
         try {
             await db.transaction(async (tx) => {
                 tx.executeSql(
-                    'DELETE FROM favorite_games WHERE id = ?',
-                    [itemToDelete.id],
-                    () => {
-                        console.log('Item excluído com sucesso');
-                        // Atualiza o estado para refletir a remoção do item excluído
-                        setData(prevData => prevData.filter(item => item.id !== itemToDelete.id));
+                    'SELECT * FROM favorite_games',
+                    [],
+                    (_, { rows: { _array } }) => {
+                        const games = _array.map(item => ({ ...JSON.parse(item.game_data), id: item.id })); 
+                        setData(games);
                     },
                     (_, error) => {
-                        console.error('Erro ao excluir item do banco de dados:', error);
+                        console.error('Erro ao ler dados do banco de dados:', error);
                     }
                 );
             });
         } catch (error) {
-            console.error('Erro ao executar transação de exclusão:', error);
+            console.error('Erro ao acessar o banco de dados:', error);
         }
     };
 
+    async function deleteGame(id){
+        try {
+            await db.transaction(async (tx) => {
+                tx.executeSql(
+                    'DELETE FROM favorite_games WHERE id = ?',
+                    [id],
+                    () => {
+                        //Atualizando dados após remover do banco
+                        fetchSavedGames();
+                    },
+                    (_, error) => {
+                        console.error('Erro ao deletar jogo:', error);
+                    }
+                );
+            });
+        } catch (error) {
+            console.error('Erro ao acessar o banco de dados:', error);
+        }
+    };
+
+    if(data.length === 0){
+        return(
+            <View style={{flex: 1, backgroundColor: '#050B18', justifyContent: 'center', alignItems: 'center'}}>
+                <Text
+                    style={{color: 'white', fontSize: 20}}
+                >
+                    As coisas andam vazias por aqui...
+                </Text>
+                <Text
+                    style={{color: 'white', fontSize: 20}}
+                >
+                    Que tal adicionar um jogo?
+                </Text>
+
+            </View>
+        )
+    }
 
     return (
         <Container>
             <ListGames
                 data={data}
-                renderItem={({ item }) => (<ListFavoriteGames data={item}deleteItem={handleDelete}/>)}
+                renderItem={({ item }) => <ListFavoriteGames data={item} onDelete={deleteGame} />}
                 keyExtractor={(item, index) => index.toString()}
             />
         </Container>
