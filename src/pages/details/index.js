@@ -139,6 +139,7 @@ export default function Details() {
                             />
                         )}
                     />
+                    
                 </ContainerBanner>
     
                 {content && (
@@ -167,7 +168,7 @@ export default function Details() {
 
                             <Subtitle>Description:</Subtitle>
 
-                            <Description>{removeTag(content.description)}...</Description>
+                            <Description numberOfLines={6}>{removeTag(content.description)}</Description>
 
                             <ModalButton onPress={() => setModalVisible(true)}>
 

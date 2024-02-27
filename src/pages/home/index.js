@@ -26,9 +26,9 @@ export default function Home(){
         }
 
         async function loadGames(){
-            const response = await api.get('games?page_size=5&key=96ffa22939174620840e464e6200055c')
+            const response = await api.get('games?page_size=10&key=96ffa22939174620840e464e6200055c')
 
-            setGames(response.data.results.slice(0,5))
+            setGames(response.data.results)
             setLoading(false);
         }
 
