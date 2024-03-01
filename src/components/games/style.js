@@ -12,6 +12,7 @@ export const ItensContainer = styled.View`
 export const Name = styled.Text`
     font-weight: bold;
     font-size: 18px;
+    margin-bottom: 10px;
 `;
 
 export const Rating = styled.View`
@@ -32,7 +33,7 @@ export const BackgoundImage = styled.Image`
 `;
 
 export const ContainerText = styled.View`
-    margin-top: -50px;
+    margin-top: -70px;
     margin-left: 10px;
     z-index: 99;
 `;

@@ -20,7 +20,12 @@ export function CardsGenres({ data }) {
 
             <ContainerText>
 
-                <Name style={{color: '#fff'}}>{data.name}</Name>
+                <Name 
+                style={{color: '#fff'}}
+                numberOfLines={1}
+                >
+                    {data.name}
+                </Name>
 
                 <Rating>
 

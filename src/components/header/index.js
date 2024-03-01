@@ -13,6 +13,7 @@ export function Header(){
     const [ gameName, setGameName ] = useState('');
 
     function searchGame(){
+        setGameName('');
         navigation.navigate('Search', { content: gameName });
     }
 
@@ -42,6 +43,7 @@ export function Header(){
                 <SearchButton onPress={searchGame}>
                     <Feather name="search" size={35} color="#FF455F" />
                 </SearchButton>
+
             </ContainerSearch>
 
         </Container>

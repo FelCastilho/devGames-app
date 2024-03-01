@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { Container, ListGames } from "./style.js";
 
-
 import LottieView from 'lottie-react-native';
 
 import sleepAnimation from '../../assets/sleep.json';
@@ -22,7 +21,7 @@ export default function Favorites() {
 
     async function fetchSavedGames() {
         try {
-            await db.transaction(async (tx) => {
+            await db.transaction(async tx => {
                 tx.executeSql(
                     'SELECT * FROM favorite_games',
                     [],

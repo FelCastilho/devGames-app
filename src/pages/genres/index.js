@@ -17,7 +17,7 @@ export default function Genres(){
     useEffect(() => {
 
         async function loadGenreSelected(){
-            const response = await api.get(`/games?page_size=5&key=96ffa22939174620840e464e6200055c&genres=${data.id}`)
+            const response = await api.get(`/games?page_size=10&key=96ffa22939174620840e464e6200055c&genres=${data.id}`)
 
             setGenres(response.data.results);
             setLoading(false)

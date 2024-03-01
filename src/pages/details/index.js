@@ -13,11 +13,11 @@ import api from "../../services/api.js";
 
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 import { openDatabase } from "expo-sqlite";
 
-const db = openDatabase('myGames', );
-
+const db = openDatabase('myGames');
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -34,6 +34,7 @@ export default function Details() {
     const [stores, setStores] = useState([]);
     const [loading, setLoading] = useState(true);
     const [ modalVisible, setModalVisible ] = useState(false)
+    const [ favoriteControl, setFavoriteControl ] = useState(false)
 
     useEffect(() => {
 
@@ -77,7 +78,7 @@ export default function Details() {
         }
     
         try {
-            await db.transaction(async (tx) => {
+            await db.transaction(async tx => {
                 await tx.executeSql(
                     'CREATE TABLE IF NOT EXISTS favorite_games (id INTEGER PRIMARY KEY AUTOINCREMENT, game_data TEXT)'
                 );
@@ -85,20 +86,19 @@ export default function Details() {
                     'INSERT INTO favorite_games (game_data) VALUES (?)',
                     [JSON.stringify(content)],
                     (_, result) => {
-                        //console.log('Jogo favorito inserido com sucesso:', result.insertId);
+                        setFavoriteControl(true);
+                        alert('Jogo adicionado com sucesso!')
                     },
                     (_, error) => {
-                        console.log('Erro ao inserir jogo favorito:', error);
+                        alert('Não foi possivel adicionar o jogo...')
                     }
                 );
             });
-        } catch (error) {
-            console.error('Erro ao salvar jogo favorito:', error);
+        } catch (err){
+            console.log(err);
         }
     }
     
-
-
     if(loading){
 
         return(
@@ -121,9 +121,15 @@ export default function Details() {
                             <AntDesign name="arrowleft" size={24} color="white" />
                         </ReturnButton>
     
-                        <FavoriteButton onPress={saveGame}>
-                            <Feather name="bookmark" size={24} color="white" />
-                        </FavoriteButton>
+                        {favoriteControl === false ? (
+                            <FavoriteButton onPress={saveGame}>
+                                <Ionicons name="bookmark-outline" size={24} color="white" />
+                            </FavoriteButton>
+                        ) : (
+                            <FavoriteButton onPress={saveGame}>
+                                <Ionicons name="bookmark" size={24} color="white" />
+                            </FavoriteButton>
+                        )}
     
                     </ContainerButtons>
     

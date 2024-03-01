@@ -14,7 +14,11 @@ export default function GenresList({ data }){
 
             <GenreButton onPress={handlePress}>
 
-                <GenreButtonText>{data.name}</GenreButtonText>
+                <GenreButtonText
+                numberOfLines={1}
+                >
+                    {data.name}
+                </GenreButtonText>
 
             </GenreButton>
             

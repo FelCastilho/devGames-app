@@ -34,12 +34,13 @@ export default function Home(){
 
         loadGenres();
         loadGames();
+
     }, [])
 
     if(loading){
         return(
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, backgroundColor: '#050B18'}}>
-             <ActivityIndicator size={24} color="#FF455F"/>
+                <ActivityIndicator size={24} color="#FF455F"/>
             </View>
         )
         
