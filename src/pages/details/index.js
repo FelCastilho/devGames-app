@@ -60,6 +60,10 @@ export default function Details() {
             loadDetails();
         }
 
+        if (content) {
+            checkIfGameExists();
+        }
+
     }, [data.slug, content]);
 
     function removeTag(description){
@@ -98,6 +102,28 @@ export default function Details() {
             console.log(err);
         }
     }
+
+    async function checkIfGameExists() {
+        try {
+            await db.transaction(async tx => {
+                tx.executeSql(
+                    'SELECT * FROM favorite_games WHERE game_data LIKE ?',
+                    [`%${content.id}%`],
+                    (_, { rows }) => {
+                        if (rows.length > 0) {
+                            setFavoriteControl(true);
+                        }
+                    },
+                    (_, error) => {
+                        console.error('Erro ao verificar se o jogo existe:', error);
+                    }
+                );
+            });
+        } catch (err) {
+            console.error('Erro ao verificar se o jogo existe:', err);
+        }
+    }
+        
     
     if(loading){
 
