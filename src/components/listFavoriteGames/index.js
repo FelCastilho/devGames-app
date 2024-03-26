@@ -1,4 +1,5 @@
 import './style.js'
+import useStorage from '../../hooks/useStorage.js';
 import { Card, Name, Rating, BackgoundImage, RatingText, ContainerText, Overlay, DeleteButton } from "./style.js"
 
 import { AntDesign } from '@expo/vector-icons';
@@ -6,14 +7,9 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 
-export default function ListFavoriteGames({ data, onDelete  }){
+export default function ListFavoriteGames({ data, onDelete }){
 
     const navigation = useNavigation();
-
-    const handleDelete = () => {
-        // Pegando o id do item e passando para a função de exclusão
-        onDelete(data.id); 
-    };
 
     return(
 
@@ -27,7 +23,7 @@ export default function ListFavoriteGames({ data, onDelete  }){
 
             <ContainerText>
 
-                <DeleteButton onPress={handleDelete}>
+                <DeleteButton onPress={() => onDelete(data.id)}>
                     <Feather name="trash" size={25} color="white" />
                 </DeleteButton>
 
@@ -36,7 +32,7 @@ export default function ListFavoriteGames({ data, onDelete  }){
                 <Rating>
 
                     <AntDesign name="star" size={20} color="#FABB1E" />
-                    <RatingText>{data.rating.toFixed(1)}/ 5</RatingText>
+                    <RatingText>{data.rating?.toFixed(1)}/ 5</RatingText>
 
                 </Rating>
 
